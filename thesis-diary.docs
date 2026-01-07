@@ -1,1 +1,171 @@
+Project Title: Reinforcement Learning for Variable-Length Finite-State String Transductions
+Duration: 12 Weeks
+Student: Ravindra Kumar
 
+Week 1 – Problem Understanding and Planning
+
+What I worked on:
+I studied the project brief and clarified the scope: learning finite-state string transductions using reinforcement learning. I reviewed examples of identity, substitution, deletion, compression, and expansion tasks to understand their structural differences.
+
+Reflections and lessons learned:
+I realized early that variable-length alignment (insertions/deletions) would be the core challenge. Classical one-to-one mappings are easy, but compression and expansion fundamentally change the learning difficulty.
+
+Progress vs. original plan:
+Initial plan focused mainly on reward design. After discussion and reading, I noted that environment/action design might also become critical later.
+
+Decisions:
+Committed to a tabular RL approach for interpretability and controlled experimentation.
+
+Week 2 – Literature Review and Theoretical Grounding
+
+What I worked on:
+Reviewed literature on finite-state transducers, reinforcement learning for symbolic tasks, and edit-distance-based rewards. Studied policy-invariant potential-based reward shaping.
+
+Reflections and lessons learned:
+Understanding Ng et al.’s shaping theorem was crucial: shaping can improve learning without changing the optimal policy. This strongly influenced my methodology design.
+
+Progress vs. original plan:
+The literature revealed limitations of terminal-only rewards, reinforcing the need for shaping.
+
+Decisions:
+Adopted incremental edit distance as the basis for shaping.
+
+Week 3 – Baseline Environment Implementation
+
+What I worked on:
+Implemented a finite-state transducer environment with tabular Q-learning and terminal-only edit-distance reward. Ran initial experiments on identity and simple deletion tasks.
+
+Reflections and lessons learned:
+The baseline worked for deletion-dominated tasks but learned very slowly. Rewards were extremely sparse.
+
+Progress vs. original plan:
+Baseline confirmed expected limitations; no major deviations.
+
+Decisions:
+Proceed to hybrid reward shaping.
+
+Week 4 – Hybrid Reward Shaping Design
+
+What I worked on:
+Implemented policy-invariant potential-based shaping using incremental edit distance. Integrated shaping into the existing environment without changing transitions or actions.
+
+Reflections and lessons learned:
+Shaping immediately improved convergence stability. Learning curves became smoother and more interpretable.
+
+Progress vs. original plan:
+Hybrid shaping exceeded expectations for simple tasks.
+
+Decisions:
+Adopt hybrid shaping as the main method for identity, substitution, and deletion tasks.
+
+Week 5 – Identity and Substitution Experiments
+
+What I worked on:
+Ran large-scale experiments on identity and substitution tasks. Generated reward curves, edit-distance plots, and Q-value heatmaps.
+
+Reflections and lessons learned:
+Hybrid shaping did not change final performance but significantly improved stability and policy clarity.
+
+Progress vs. original plan:
+Results aligned well with theory and strengthened confidence in the approach.
+
+Decisions:
+Use these tasks as baseline benchmarks in the report.
+
+Week 6 – Deletion Tasks and Scaling Difficulty
+
+What I worked on:
+Evaluated deletion tasks with increasing preserved symbol sets (e.g., preserve {a}, {a,b}, {a,b,c}).
+
+Reflections and lessons learned:
+Shaping scaled well with task difficulty. Policies remained interpretable even as complexity increased.
+
+Progress vs. original plan:
+Deletion tasks generalized better than expected.
+
+Decisions:
+Position deletion as a success case for hybrid shaping in RQ2/RQ3.
+
+Week 7 – Compression and Expansion Failure Analysis
+
+What I worked on:
+Applied hybrid shaping to compression (n→1) and expansion (1→n) tasks.
+
+Reflections and lessons learned:
+Shaping alone failed: learning oscillated and plateaued. Incremental edit distance sometimes penalized correct early decisions.
+
+Progress vs. original plan:
+This was a turning point. Reward design alone was insufficient.
+
+Decisions:
+Rethink the action/environment structure rather than further tuning rewards.
+
+Week 8 – Atomic Transduction Concept Development
+
+What I worked on:
+Designed an atomic transduction framework separating emission, consumption, and deletion into explicit actions.
+
+Reflections and lessons learned:
+This reframed alignment as a learnable decision rather than a side effect of transitions.
+
+Progress vs. original plan:
+Major methodological extension beyond initial plan.
+
+Decisions:
+Introduce atomic actions as a complementary method, not a replacement.
+
+Week 9 – Atomic Compression Experiments
+
+What I worked on:
+Implemented atomic environment and ran compression experiments.
+
+Reflections and lessons learned:
+Compression became reliably solvable. Exact-match accuracy reached 1.0 and remained stable.
+
+Progress vs. original plan:
+Atomic approach successfully addressed a core limitation of hybrid shaping.
+
+Decisions:
+Use compression as the strongest empirical evidence for atomic design (RQ1).
+
+Week 10 – Atomic Expansion Experiments
+
+What I worked on:
+Evaluated expansion (duplication) under atomic actions.
+
+Reflections and lessons learned:
+Performance improved but remained imperfect. One-to-many mappings introduce compounding long-horizon dependencies.
+
+Progress vs. original plan:
+Confirmed expansion as an open challenge.
+
+Decisions:
+Frame expansion as partially solved and motivate future work.
+
+Week 11 – Results Analysis and Writing
+
+What I worked on:
+Analyzed plots, summarized results into tables, and connected findings to RQ1–RQ3.
+
+Reflections and lessons learned:
+Clear separation emerged: reward shaping helps when alignment is local; action redesign is required for global alignment.
+
+Progress vs. original plan:
+Results section became more structured and convincing.
+
+Decisions:
+Avoid deep learning baselines due to time and scope constraints; include as future work.
+
+Week 12 – Final Report and Reflection
+
+What I worked on:
+Completed the report, refined figures, tables, and discussion, and aligned the narrative with course rubrics.
+
+Reflections and lessons learned:
+The project strengthened my understanding of reward shaping limits and the importance of environment design in RL.
+
+Progress vs. original plan:
+Project evolved significantly but remained coherent and focused.
+
+Decisions:
+Conclude with a clear roadmap for future extensions (DQN, seq2seq, hierarchical actions).
